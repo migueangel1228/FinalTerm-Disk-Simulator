@@ -9,7 +9,7 @@ using namespace std;
 
 class DiskScheduler {
 public:
-    // Constants
+    // Constantes
     static const int TOTAL_CYLINDERS;
     static const int MAX_CYLINDER;
     static const int REQUEST_COUNT;
@@ -19,27 +19,27 @@ public:
     // Constructor
     DiskScheduler(int startHeadPosition, Direction startDirection = Direction::UP);
 
-    // Public interface
+    // Interfaz publica
     void runAllAlgorithms();
     void printAllResults() const;
     void exportResultsToCSV(const string& filename) const;
 
 private:
-    // Attributes
+    // Atributos
     int startHeadPosition;
     Direction initialDirection;
     vector<int> requests;
     vector<ScheduleResult> results;
 
-    // Private methods
+    // Metodos privados
     void loadRandomRequests();
 
-    // Scheduling algorithms
+    // Algoritmos de planificacion
     ScheduleResult calculateFCFS() const;
     ScheduleResult calculateSCAN() const;
     ScheduleResult calculateCSCAN() const;
 
-    // Helper methods
+    // Metodos auxiliares
     void printAlgorithmResult(const ScheduleResult& result) const;
     int calculateTotalMovement(const vector<int>& servicedRequests, int initialPosition) const;
 };

@@ -15,13 +15,13 @@ const int DiskScheduler::REQUEST_COUNT = 1000;
 DiskScheduler::DiskScheduler(int startHeadPosition, Direction startDirection)
     : startHeadPosition(startHeadPosition), initialDirection(startDirection) {
     if (startHeadPosition < 0 || startHeadPosition >= TOTAL_CYLINDERS) {
-        throw invalid_argument("Start head position is out of bounds.");
+        throw invalid_argument("La posicion inicial de la cabeza esta fuera de rango.");
     }
     loadRandomRequests();
 }
 
 void DiskScheduler::loadRandomRequests() {
-    // Using a fixed seed for reproducibility as requested.
+    // Se usa una semilla fija para mantener la reproducibilidad.
     unsigned int seed = 2023; 
     requests = Utils::generateRandomRequests(REQUEST_COUNT, 0, MAX_CYLINDER, seed);
 }
@@ -36,7 +36,7 @@ void DiskScheduler::runAllAlgorithms() {
 ScheduleResult DiskScheduler::calculateFCFS() const {
     ScheduleResult result;
     result.algorithmName = "FCFS";
-    result.servicedRequests = requests; // Order is preserved
+    result.servicedRequests = requests; // Se conserva el orden
     result.totalMovement = calculateTotalMovement(result.servicedRequests, startHeadPosition);
     return result;
 }
@@ -58,28 +58,28 @@ ScheduleResult DiskScheduler::calculateSCAN() const {
     sort(right.begin(), right.end());
 
     if (initialDirection == Direction::DOWN) {
-        // Move down first, serving requests
+        // Mover hacia abajo primero, atendiendo solicitudes
         for (int i = left.size() - 1; i >= 0; --i) {
             result.servicedRequests.push_back(left[i]);
         }
-        // Hit the beginning of the disk
+        // Llegar al inicio del disco
         if (!left.empty() || !right.empty()) {
              result.servicedRequests.push_back(0);
         }
-        // Move up, serving requests
+        // Mover hacia arriba, atendiendo solicitudes
         for (int req : right) {
             result.servicedRequests.push_back(req);
         }
     } else { // Direction::UP
-        // Move up first
+        // Mover hacia arriba primero
         for (int req : right) {
             result.servicedRequests.push_back(req);
         }
-        // Hit the end of the disk
+        // Llegar al final del disco
         if (!left.empty() || !right.empty()) {
             result.servicedRequests.push_back(MAX_CYLINDER);
         }
-        // Move down
+        // Mover hacia abajo
         for (int i = left.size() - 1; i >= 0; --i) {
             result.servicedRequests.push_back(left[i]);
         }
@@ -105,19 +105,19 @@ ScheduleResult DiskScheduler::calculateCSCAN() const {
     sort(left.begin(), left.end());
     sort(right.begin(), right.end());
 
-    // Always moves in one direction (e.g., UP)
-    // Serve requests to the right of the head
+    // Siempre se mueve en una sola direccion, por ejemplo hacia arriba
+    // Atender solicitudes a la derecha de la cabeza
     for (int req : right) {
         result.servicedRequests.push_back(req);
     }
 
-    // If there are requests to be served, jump to the end and then to the beginning
+    // Si hay solicitudes, saltar al final y luego al inicio
     if (!requests.empty()) {
         result.servicedRequests.push_back(MAX_CYLINDER);
         result.servicedRequests.push_back(0);
     }
     
-    // Serve requests from the beginning
+    // Atender solicitudes desde el inicio
     for (int req : left) {
         result.servicedRequests.push_back(req);
     }
@@ -140,9 +140,9 @@ int DiskScheduler::calculateTotalMovement(const vector<int>& servicedRequests, i
 }
 
 void DiskScheduler::printAllResults() const {
-    cout << "\n--- Disk Scheduling Simulation ---\n";
-    cout << "Initial Head Position: " << startHeadPosition << "\n";
-    cout << "Total Requests: " << requests.size() << "\n";
+    cout << "\n--- Simulacion de planificacion de disco ---\n";
+    cout << "Posicion inicial de la cabeza: " << startHeadPosition << "\n";
+    cout << "Total de solicitudes: " << requests.size() << "\n";
     cout << "------------------------------------\n";
 
     for (const auto& result : results) {
@@ -151,19 +151,19 @@ void DiskScheduler::printAllResults() const {
 }
 
 void DiskScheduler::printAlgorithmResult(const ScheduleResult& result) const {
-    cout << "\n--- Algorithm: " << result.algorithmName << " ---\n";
-    cout << "Service Order and Movement:\n";
+    cout << "\n--- Algoritmo: " << result.algorithmName << " ---\n";
+    cout << "Orden de atencion y movimiento:\n";
     
     int lastPos = startHeadPosition;
     for(int req : result.servicedRequests) {
-        cout << "  Request: " << req << ", Movement: " << abs(req - lastPos) << "\n";
+        cout << "  Solicitud: " << req << ", Movimiento: " << abs(req - lastPos) << "\n";
         lastPos = req;
     }
 
-    cout << "Total Head Movement: " << result.totalMovement << " cylinders\n";
+    cout << "Movimiento total de la cabeza: " << result.totalMovement << " cilindros\n";
     if (!result.servicedRequests.empty()) {
         double avgMovement = static_cast<double>(result.totalMovement) / result.servicedRequests.size();
-        cout << "Average Head Movement: " << avgMovement << " cylinders\n";
+        cout << "Movimiento promedio de la cabeza: " << avgMovement << " cilindros\n";
     }
     cout << "------------------------------------\n";
 }
@@ -171,7 +171,7 @@ void DiskScheduler::printAlgorithmResult(const ScheduleResult& result) const {
 void DiskScheduler::exportResultsToCSV(const string& filename) const {
     ofstream outFile(filename);
     if (!outFile.is_open()) {
-        cerr << "Error: Could not open file " << filename << " for writing." << endl;
+        cerr << "Error: no se pudo abrir el archivo " << filename << " para escritura." << endl;
         return;
     }
 
@@ -185,5 +185,5 @@ void DiskScheduler::exportResultsToCSV(const string& filename) const {
     }
 
     outFile.close();
-    cout << "\nResults exported to " << filename << endl;
+    cout << "\nResultados exportados a " << filename << endl;
 }

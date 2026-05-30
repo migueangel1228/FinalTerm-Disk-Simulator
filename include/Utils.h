@@ -7,13 +7,13 @@ using namespace std;
 
 namespace Utils {
     /**
-     * @brief Generates a vector of random integers within a specified range.
+     * @brief Genera un vector de enteros aleatorios dentro de un rango especificado.
      *
-     * @param count The number of random integers to generate.
-     * @param min The minimum value of the random numbers (inclusive).
-     * @param max The maximum value of the random numbers (inclusive).
-     * @param seed The seed for the random number generator for reproducibility.
-     * @return A vector containing the generated random integers.
+     * @param count Cantidad de enteros aleatorios a generar.
+     * @param min Valor minimo de los numeros aleatorios (inclusivo).
+     * @param max Valor maximo de los numeros aleatorios (inclusivo).
+     * @param seed Semilla para el generador de numeros aleatorios y mantener reproducibilidad.
+     * @return Un vector con los enteros aleatorios generados.
      */
     vector<int> generateRandomRequests(int count, int min, int max, unsigned int seed);
 }

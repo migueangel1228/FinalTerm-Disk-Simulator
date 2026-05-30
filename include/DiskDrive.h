@@ -5,24 +5,24 @@
 
 class DiskDrive {
 public:
-    // Constants
+    // Constantes
     static const int SECTOR_SIZE_BYTES;
     static const int64_t BYTES_PER_GB;
 
     // Constructor
     DiskDrive();
 
-    // Public interface
+    // Interfaz publica
     void run();
 
 private:
-    // Attributes
+    // Atributos
     double diskSizeGB;
     int64_t sectors;
     int tracks;
     int platters;
 
-    // Private methods
+    // Metodos privados
     void readInputs();
     bool validateInputs(double size, int trackCount, int platterCount) const;
     void calculateGeometry();

@@ -1,170 +1,174 @@
 # FinalTerm-Disk-Simulator
 
-## 1. Overview
+## 1. Descripción general
 
-This project is a C++ simulation of two key disk-related concepts for a university final term assignment. It covers:
-1.  **Disk Drive Geometry**: Simulating the physical characteristics of a Hard Disk Drive (HDD) based on its size.
-2.  **Disk Scheduling Algorithms**: Implementing and comparing FCFS, SCAN, and C-SCAN algorithms for servicing disk I/O requests.
+Este proyecto es una simulación en C++ de dos conceptos clave relacionados con discos duros para un trabajo final universitario. Cubre:
+1. **Geometría de la unidad de disco**: simulación de las características físicas de un HDD a partir de su tamaño.
+2. **Algoritmos de planificación de disco**: implementación y comparación de FCFS, SCAN y C-SCAN para atender solicitudes de E/S.
 
-The project is built with professional software engineering practices, including a modular structure, clean code, and a clear separation of concerns. It is designed to be compiled and run from the command line.
+El proyecto está organizado con buenas prácticas de ingeniería de software, incluyendo una estructura modular, código limpio y una separación clara de responsabilidades. Está pensado para compilarse y ejecutarse desde la línea de comandos.
 
-## 2. Problem 1: Disk Drive Geometry
+## 2. Problema 1: Geometría de la unidad de disco
 
-### Description
-This part of the simulator models the physical structure of an HDD. The user provides the disk size in Gigabytes (GB) and either the number of tracks or platters. The program then calculates the remaining parameter based on a simplified formula.
+### Descripción
+Esta parte del simulador modela la estructura física de un HDD. El usuario proporciona el tamaño del disco en gigabytes (GB) y el número de pistas o de platos. Luego, el programa calcula el parámetro faltante con una fórmula simplificada.
 
-### Key Features
--   Calculates disk geometry (sectors, tracks, platters).
--   Uses a standard sector size of 512 bytes.
--   Defines 1 GB as 1,000,000,000 bytes for calculations.
--   Validates user input to prevent errors.
--   Displays a clear and professional summary of the disk's geometry.
+### Características principales
+- Calcula la geometría del disco (sectores, pistas y platos).
+- Usa un tamaño estándar de sector de 512 bytes.
+- Toma 1 GB como 1,000,000,000 bytes para los cálculos.
+- Valida la entrada del usuario para evitar errores.
+- Muestra un resumen claro y ordenado de la geometría del disco.
 
-## 3. Problem 2: Disk Scheduling
+## 3. Problema 2: Planificación de disco
 
-### Description
-This part implements three fundamental disk scheduling algorithms to manage I/O requests efficiently. The simulation runs on a disk with 5,000 cylinders (0-4999) and services 1,000 randomly generated requests.
+### Descripción
+Esta parte implementa tres algoritmos fundamentales de planificación de disco para administrar eficientemente las solicitudes de E/S. La simulación se ejecuta sobre un disco con 5,000 cilindros (0-4999) y atiende 1,000 solicitudes generadas aleatoriamente.
 
-### Implemented Algorithms
-1.  **FCFS (First-Come, First-Served)**: Services requests in the order they arrive. Simple but often inefficient.
-2.  **SCAN (Elevator Algorithm)**: The disk head moves in one direction, servicing all requests in its path until it reaches the end of the disk. It then reverses direction.
-3.  **C-SCAN (Circular SCAN)**: Similar to SCAN, but the head only services requests in one direction. After reaching the end, it jumps back to the beginning without servicing any requests on the return trip, providing more uniform wait times.
+### Algoritmos implementados
+1. **FCFS (First-Come, First-Served)**: atiende las solicitudes en el orden en que llegan. Es simple, pero a menudo ineficiente.
+2. **SCAN (algoritmo del ascensor)**: la cabeza del disco se mueve en una dirección, atendiendo todas las solicitudes en su recorrido hasta llegar al extremo del disco. Luego invierte la dirección.
+3. **C-SCAN (SCAN circular)**: similar a SCAN, pero la cabeza solo atiende solicitudes en una dirección. Al llegar al extremo, regresa al inicio sin atender solicitudes durante el retorno, lo que ofrece tiempos de espera más uniformes.
 
-### Key Features
--   Generates 1,000 random cylinder requests.
--   Accepts the initial head position as a command-line argument or interactively.
--   Calculates and reports the total head movement for each algorithm.
--   Displays the sequence of serviced requests for verification.
--   Exports a summary of results to a CSV file.
+### Características principales
+- Genera 1,000 solicitudes aleatorias de cilindros.
+- Acepta la posición inicial de la cabeza como argumento de línea de comandos o de forma interactiva.
+- Calcula e informa el movimiento total de la cabeza para cada algoritmo.
+- Muestra la secuencia de solicitudes atendidas para verificación.
+- Exporta un resumen de resultados a un archivo CSV.
 
-## 4. Project Structure
+## 4. Estructura del proyecto
 
-The project is organized into the following directories and files:
+El proyecto está organizado en los siguientes directorios y archivos:
 
 ```
 FinalTerm-Disk-Simulator/
-├── include/                # Header files
+├── include/                # Archivos de encabezado
 │   ├── DiskDrive.h
 │   ├── DiskScheduler.h
 │   ├── ScheduleResult.h
 │   └── Utils.h
-├── src/                    # Source files
+├── src/                    # Archivos fuente
 │   ├── DiskDrive.cpp
 │   ├── DiskScheduler.cpp
 │   ├── main.cpp
 │   └── Utils.cpp
-├── data/                   # Output data
+├── data/                   # Datos de salida
 │   └── results.csv
-└── README.md               # This file
+└── README.md               # Este archivo
 ```
 
-## 5. Build Instructions
+## 5. Compilación
 
-**Prerequisites**:
--   A C++17 compatible compiler (e.g., g++).
+**Requisitos previos**:
+- Un compilador compatible con C++17, por ejemplo `g++`.
 
-**Compilation Steps**:
-1.  Open a terminal in the project's root directory.
-2.  Run the following commands to compile the project:
-    ```bash
-    g++ -Iinclude -c src/DiskDrive.cpp -o obj/DiskDrive.o
-    g++ -Iinclude -c src/DiskScheduler.cpp -o obj/DiskScheduler.o
-    g++ -Iinclude -c src/Utils.cpp -o obj/Utils.o
-    g++ -Iinclude -c src/main.cpp -o obj/main.o
-    g++ obj/*.o -o bin/disksim
-    ```
-3.  The executable will be created at `bin/disksim`.
+**Pasos de compilación**:
+1. Abre una terminal en la raíz del proyecto.
+2. Ejecuta los siguientes comandos para compilar el proyecto en Windows:
+   ```powershell
+   g++ -Iinclude -c src/DiskDrive.cpp -o obj/DiskDrive.o
+   g++ -Iinclude -c src/DiskScheduler.cpp -o obj/DiskScheduler.o
+   g++ -Iinclude -c src/Utils.cpp -o obj/Utils.o
+   g++ -Iinclude -c src/main.cpp -o obj/main.o
+   g++ obj/*.o -o bin/disksim.exe
+   ```
+3. El ejecutable se generará en `bin/disksim.exe`.
 
-## 6. Run Instructions
+## 6. Ejecución
 
-You can run the simulator in two ways:
+Puedes ejecutar el simulador de dos maneras:
 
-### Interactive Mode
-Run the program without any arguments to see a menu. Note that the command might be different depending on your operating system.
+### Modo interactivo
+Ejecuta el programa sin argumentos para ver un menú. Ten en cuenta que el comando puede variar según el sistema operativo.
 
-**On Windows (PowerShell):**
+**En Windows (PowerShell):**
 ```powershell
-.\\bin\\disksim
+.\bin\disksim.exe
 ```
 
-**On Linux/macOS:**
+**En Linux/macOS:**
 ```bash
 ./bin/disksim
 ```
-You will be prompted to choose which simulation to run.
 
-### Command-Line Argument
-You can provide the initial head position for the disk scheduling simulation as a command-line argument.
+El programa te pedirá elegir qué simulación ejecutar.
 
-**On Windows (PowerShell):**
+### Argumento de línea de comandos
+Puedes proporcionar la posición inicial de la cabeza para la simulación de planificación de disco como argumento.
+
+**En Windows (PowerShell):**
 ```powershell
-.\\bin\\disksim [initial_head_position]
-```
-Example:
-```powershell
-.\\bin\\disksim 1234
+.\bin\disksim.exe [posicion_inicial_cabeza]
 ```
 
-**On Linux/macOS:**
+Ejemplo:
+```powershell
+.\bin\disksim.exe 1234
+```
+
+**En Linux/macOS:**
 ```bash
-./bin/disksim [initial_head_position]
+./bin/disksim [posicion_inicial_cabeza]
 ```
-Example:
+
+Ejemplo:
 ```bash
 ./bin/disksim 1234
 ```
-If an argument is provided, the menu will still be shown, but the scheduling simulation will use the provided head position if selected.
 
-## 7. Input and Output Format
+Si se proporciona un argumento, el menú seguirá apareciendo, pero la simulación de planificación usará esa posición si se selecciona.
 
-### Input
--   **Disk Geometry**: The program will prompt you to enter the disk size (GB) and either the number of tracks or platters.
--   **Disk Scheduling**: The program will prompt for the initial head position if not provided via command line.
+## 7. Formato de entrada y salida
 
-### Output
--   **Console**: The results of the simulations are printed to the console in a formatted, human-readable way.
--   **CSV File**: The disk scheduling results (total and average head movement for each algorithm) are saved to `data/results.csv`.
+### Entrada
+- **Geometría del disco**: el programa solicitará el tamaño del disco en GB y el número de pistas o de platos.
+- **Planificación de disco**: el programa pedirá la posición inicial de la cabeza si no se proporciona por línea de comandos.
 
-## 8. Algorithm Explanation
+### Salida
+- **Consola**: los resultados de las simulaciones se imprimen en consola con un formato legible.
+- **Archivo CSV**: los resultados de la planificación de disco, incluyendo el movimiento total y el promedio por algoritmo, se guardan en `data/results.csv`.
 
--   **FCFS**: The simplest algorithm. It processes requests in the sequence they were received. This can lead to excessive head movement if the requests are scattered across the disk.
--   **SCAN**: Reduces head movement by servicing all requests in one direction before reversing. This is like an elevator that goes all the way to the top floor and then all the way to the bottom, picking up passengers along the way.
--   **C-SCAN**: Improves upon SCAN by providing more uniform wait times. The head moves from one end of the disk to the other, servicing requests. When it reaches the end, it immediately returns to the beginning without servicing requests, and then starts a new sweep.
+## 8. Explicación de los algoritmos
 
-## 9. Sample Outputs
+- **FCFS**: el algoritmo más simple. Procesa las solicitudes en el mismo orden en que fueron recibidas. Esto puede provocar un movimiento excesivo de la cabeza si las solicitudes están dispersas por el disco.
+- **SCAN**: reduce el movimiento de la cabeza atendiendo todas las solicitudes en una dirección antes de invertir el sentido. Es como un ascensor que sube hasta el último piso y luego baja hasta el primero, recogiendo pasajeros en el camino.
+- **C-SCAN**: mejora a SCAN al ofrecer tiempos de espera más uniformes. La cabeza se mueve de un extremo del disco al otro atendiendo solicitudes. Cuando llega al final, regresa inmediatamente al inicio sin atender solicitudes durante el retorno y comienza un nuevo recorrido.
 
-### DiskDrive Simulation
+## 9. Ejemplos de salida
+
+### Simulación de DiskDrive
 ```
---- Disk Drive Geometry Summary ---
-Disk Size: 10 GB
-Sector Size: 512 bytes
-Total Sectors: 19531250
-Calculated Tracks (per platter): 128
-Calculated Platters: 60
------------------------------------
+--- Resumen de geometría de la unidad de disco ---
+Tamano del disco: 10 GB
+Tamano del sector: 512 bytes
+Total de sectores: 19531250
+Pistas calculadas (por plato): 128
+Platos calculados: 60
+-----------------------------------------------
 ```
 
-### DiskScheduler Simulation
+### Simulación de DiskScheduler
 ```
---- Algorithm: FCFS ---
-Service Order and Movement:
-  Request: 1632, Movement: 399
-  Request: 4815, Movement: 3183
+--- Algoritmo: FCFS ---
+Orden de atencion y movimiento:
+  Solicitud: 1632, Movimiento: 399
+  Solicitud: 4815, Movimiento: 3183
   ...
-Total Head Movement: 1956381 cylinders
-Average Head Movement: 1956.38 cylinders
+Movimiento total de la cabeza: 1956381 cilindros
+Movimiento promedio de la cabeza: 1956.38 cilindros
 ------------------------------------
 ```
 
-## 10. Assumptions and Limitations
+## 10. Suposiciones y limitaciones
 
--   **Disk Geometry**: The formula `sectors * tracks * platters = total_sectors` is a simplification. In this model, we assume a fixed number of sectors per track (256) to make the calculation determinate. Real-world HDDs have a more complex structure (e.g., zones, varying sectors per track).
--   **Scheduling**: The simulation does not account for rotational latency or data transfer time, focusing solely on seek time (head movement).
+- **Geometría del disco**: la fórmula `sectores * pistas * platos = total_sectores` es una simplificación. En este modelo se asume un número fijo de sectores por pista (256) para que el cálculo sea determinista. Los HDD reales tienen una estructura más compleja, por ejemplo zonas y un número variable de sectores por pista.
+- **Planificación**: la simulación no considera latencia rotacional ni tiempo de transferencia de datos; solo se enfoca en el tiempo de búsqueda, es decir, el movimiento de la cabeza.
 
-## 11. Author Information
+## 11. Información del autor
 
--   **Author**: [Your Name]
--   **Course**: [Your Course Name]
--   **Assignment**: Final Term Project
+- **Autor**: Miguel Angel Padilla Rosero
+- **Curso**: Sistemas Operativos
+- **Asignación**: Parcial final del curso
 
-This project was developed as a solution to the final term assignment, demonstrating an understanding of disk systems and C++ software development principles.
+Este proyecto fue desarrollado como solución al parcial final, demostrando comprensión de sistemas de disco y principios de desarrollo de software en C++.

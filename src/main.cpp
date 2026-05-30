@@ -8,12 +8,12 @@ using namespace std;
 
 void showMenu() {
     cout << "\n===== Final Term - Disk Simulator =====\n";
-    cout << "1. Problem 1: Disk Drive Geometry Simulation\n";
-    cout << "2. Problem 2: Disk Scheduling Algorithms\n";
-    cout << "3. Run Both\n";
-    cout << "4. Exit\n";
+    cout << "1. Problema 1: simulacion de geometria de disco\n";
+    cout << "2. Problema 2: algoritmos de planificacion de disco\n";
+    cout << "3. Ejecutar ambos\n";
+    cout << "4. Salir\n";
     cout << "=======================================\n";
-    cout << "Enter your choice: ";
+    cout << "Ingresa tu opcion: ";
 }
 
 void runDiskDriveSimulator() {
@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
         try {
             headPosition = stoi(argv[1]);
         } catch (const exception& e) {
-            cerr << "Invalid command line argument for head position. Using interactive mode." << endl;
+            cerr << "Argumento de linea de comandos invalido para la posicion de la cabeza. Se usara el modo interactivo." << endl;
         }
     }
 
@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
         cin >> choice;
 
         if (cin.fail()) {
-            cout << "Invalid input. Please enter a number." << endl;
+            cout << "Entrada invalida. Por favor ingresa un numero." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             choice = 0;
@@ -62,36 +62,36 @@ int main(int argc, char* argv[]) {
                 break;
             case 2:
                 if (headPosition == -1) {
-                    cout << "Enter initial head position (0-4999): ";
+                    cout << "Ingresa la posicion inicial de la cabeza (0-4999): ";
                     cin >> headPosition;
-                     if (cin.fail() || headPosition < 0 || headPosition >= DiskScheduler::TOTAL_CYLINDERS) {
-                        cout << "Invalid head position. Please try again." << endl;
+                    if (cin.fail() || headPosition < 0 || headPosition >= DiskScheduler::TOTAL_CYLINDERS) {
+                        cout << "Posicion de cabeza invalida. Intenta nuevamente." << endl;
                         headPosition = -1;
                         break;
                     }
                 }
                 runDiskSchedulingSimulator(headPosition);
-                headPosition = -1; // Reset for next run
+                headPosition = -1; // Reiniciar para la siguiente ejecucion
                 break;
             case 3:
                 runDiskDriveSimulator();
                 if (headPosition == -1) {
-                    cout << "\nEnter initial head position for scheduling (0-4999): ";
+                    cout << "\nIngresa la posicion inicial de la cabeza para la planificacion (0-4999): ";
                     cin >> headPosition;
                     if (cin.fail() || headPosition < 0 || headPosition >= DiskScheduler::TOTAL_CYLINDERS) {
-                        cout << "Invalid head position. Please try again." << endl;
+                        cout << "Posicion de cabeza invalida. Intenta nuevamente." << endl;
                         headPosition = -1;
                         break;
                     }
                 }
                 runDiskSchedulingSimulator(headPosition);
-                headPosition = -1; // Reset for next run
+                headPosition = -1; // Reiniciar para la siguiente ejecucion
                 break;
             case 4:
-                cout << "Exiting program." << endl;
+                cout << "Saliendo del programa." << endl;
                 break;
             default:
-                cout << "Invalid choice. Please select a valid option." << endl;
+                cout << "Opcion invalida. Selecciona una opcion valida." << endl;
                 break;
         }
     }
