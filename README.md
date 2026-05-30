@@ -2,11 +2,11 @@
 
 ## 1. Descripción general
 
-Este proyecto es una simulación en C++ de dos conceptos clave relacionados con discos duros para un trabajo final universitario. Cubre:
+Este proyecto es una simulación en C++ de dos temas relacionados con discos duros para un trabajo final universitario. Cubre:
 1. **Geometría de la unidad de disco**: simulación de las características físicas de un HDD a partir de su tamaño.
 2. **Algoritmos de planificación de disco**: implementación y comparación de FCFS, SCAN y C-SCAN para atender solicitudes de E/S.
 
-El proyecto está organizado con buenas prácticas de ingeniería de software, incluyendo una estructura modular, código limpio y una separación clara de responsabilidades. Está pensado para compilarse y ejecutarse desde la línea de comandos.
+El proyecto tiene una estructura modular y se ejecuta desde la línea de comandos.
 
 ## 2. Problema 1: Geometría de la unidad de disco
 
@@ -18,17 +18,17 @@ Esta parte del simulador modela la estructura física de un HDD. El usuario prop
 - Usa un tamaño estándar de sector de 512 bytes.
 - Toma 1 GB como 1,000,000,000 bytes para los cálculos.
 - Valida la entrada del usuario para evitar errores.
-- Muestra un resumen claro y ordenado de la geometría del disco.
+- Muestra un resumen con los valores calculados.
 
 ## 3. Problema 2: Planificación de disco
 
 ### Descripción
-Esta parte implementa tres algoritmos fundamentales de planificación de disco para administrar eficientemente las solicitudes de E/S. La simulación se ejecuta sobre un disco con 5,000 cilindros (0-4999) y atiende 1,000 solicitudes generadas aleatoriamente.
+Esta parte implementa tres algoritmos de planificación de disco para procesar solicitudes de E/S. La simulación se ejecuta sobre un disco con 5,000 cilindros (0-4999) y atiende 1,000 solicitudes generadas aleatoriamente.
 
 ### Algoritmos implementados
-1. **FCFS (First-Come, First-Served)**: atiende las solicitudes en el orden en que llegan. Es simple, pero a menudo ineficiente.
-2. **SCAN (algoritmo del ascensor)**: la cabeza del disco se mueve en una dirección, atendiendo todas las solicitudes en su recorrido hasta llegar al extremo del disco. Luego invierte la dirección.
-3. **C-SCAN (SCAN circular)**: similar a SCAN, pero la cabeza solo atiende solicitudes en una dirección. Al llegar al extremo, regresa al inicio sin atender solicitudes durante el retorno, lo que ofrece tiempos de espera más uniformes.
+1. **FCFS (First-Come, First-Served)**: atiende las solicitudes en el orden en que llegan.
+2. **SCAN (algoritmo del ascensor)**: la cabeza del disco se mueve en una dirección, atiende las solicitudes de ese recorrido y luego invierte la dirección.
+3. **C-SCAN (SCAN circular)**: similar a SCAN, pero solo atiende solicitudes en una dirección. Al llegar al extremo, regresa al inicio sin atender solicitudes durante el retorno.
 
 ### Características principales
 - Genera 1,000 solicitudes aleatorias de cilindros.
@@ -80,7 +80,7 @@ FinalTerm-Disk-Simulator/
 Puedes ejecutar el simulador de dos maneras:
 
 ### Modo interactivo
-Ejecuta el programa sin argumentos para ver un menú. Ten en cuenta que el comando puede variar según el sistema operativo.
+Ejecuta el programa sin argumentos para ver un menú. El comando cambia según el sistema operativo.
 
 **En Windows (PowerShell):**
 ```powershell
@@ -92,7 +92,7 @@ Ejecuta el programa sin argumentos para ver un menú. Ten en cuenta que el coman
 ./bin/disksim
 ```
 
-El programa te pedirá elegir qué simulación ejecutar.
+El programa pedirá elegir qué simulación ejecutar.
 
 ### Argumento de línea de comandos
 Puedes proporcionar la posición inicial de la cabeza para la simulación de planificación de disco como argumento.
@@ -126,14 +126,14 @@ Si se proporciona un argumento, el menú seguirá apareciendo, pero la simulaci�
 - **Planificación de disco**: el programa pedirá la posición inicial de la cabeza si no se proporciona por línea de comandos.
 
 ### Salida
-- **Consola**: los resultados de las simulaciones se imprimen en consola con un formato legible.
+- **Consola**: los resultados de las simulaciones se imprimen en consola.
 - **Archivo CSV**: los resultados de la planificación de disco, incluyendo el movimiento total y el promedio por algoritmo, se guardan en `data/results.csv`.
 
 ## 8. Explicación de los algoritmos
 
-- **FCFS**: el algoritmo más simple. Procesa las solicitudes en el mismo orden en que fueron recibidas. Esto puede provocar un movimiento excesivo de la cabeza si las solicitudes están dispersas por el disco.
-- **SCAN**: reduce el movimiento de la cabeza atendiendo todas las solicitudes en una dirección antes de invertir el sentido. Es como un ascensor que sube hasta el último piso y luego baja hasta el primero, recogiendo pasajeros en el camino.
-- **C-SCAN**: mejora a SCAN al ofrecer tiempos de espera más uniformes. La cabeza se mueve de un extremo del disco al otro atendiendo solicitudes. Cuando llega al final, regresa inmediatamente al inicio sin atender solicitudes durante el retorno y comienza un nuevo recorrido.
+- **FCFS**: procesa las solicitudes en el mismo orden en que fueron recibidas.
+- **SCAN**: atiende las solicitudes en una dirección y luego invierte el sentido.
+- **C-SCAN**: atiende solicitudes en una sola dirección y, al llegar al final, regresa al inicio para continuar.
 
 ## 9. Ejemplos de salida
 
@@ -162,13 +162,13 @@ Movimiento promedio de la cabeza: 1956.38 cilindros
 
 ## 10. Suposiciones y limitaciones
 
-- **Geometría del disco**: la fórmula `sectores * pistas * platos = total_sectores` es una simplificación. En este modelo se asume un número fijo de sectores por pista (256) para que el cálculo sea determinista. Los HDD reales tienen una estructura más compleja, por ejemplo zonas y un número variable de sectores por pista.
-- **Planificación**: la simulación no considera latencia rotacional ni tiempo de transferencia de datos; solo se enfoca en el tiempo de búsqueda, es decir, el movimiento de la cabeza.
+- **Geometría del disco**: la fórmula `sectores * pistas * platos = total_sectores` es una simplificación. En este modelo se asume un número fijo de sectores por pista (256) para que el cálculo sea determinista. Los HDD reales tienen una estructura más compleja.
+- **Planificación**: la simulación no considera latencia en cada rotacion ni tiempo de transferencia de datos; solo se enfoca en el tiempo de búsqueda, es decir, el movimiento de la cabeza.
 
-## 11. Información del autor
+## 11. Autor
 
 - **Autor**: Miguel Angel Padilla Rosero
 - **Curso**: Sistemas Operativos
 - **Asignación**: Parcial final del curso
 
-Este proyecto fue desarrollado como solución al parcial final, demostrando comprensión de sistemas de disco y principios de desarrollo de software en C++.
+Este proyecto fue desarrollado como solución al parcial final.
