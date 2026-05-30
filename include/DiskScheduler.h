@@ -10,9 +10,9 @@ using namespace std;
 class DiskScheduler {
 public:
     // Constants
-    inline static const int TOTAL_CYLINDERS = 5000;
-    inline static const int MAX_CYLINDER = 4999;
-    inline static const int REQUEST_COUNT = 1000;
+    static const int TOTAL_CYLINDERS;
+    static const int MAX_CYLINDER;
+    static const int REQUEST_COUNT;
 
     enum class Direction { UP, DOWN };
 

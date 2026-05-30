@@ -65,9 +65,13 @@ FinalTerm-Disk-Simulator/
 
 **Compilation Steps**:
 1.  Open a terminal in the project's root directory.
-2.  Run the following command to compile the project:
+2.  Run the following commands to compile the project:
     ```bash
-    g++ -std=c++17 -Wall -Wextra -Wpedantic -g -O0 -Iinclude src/*.cpp -o bin/disksim
+    g++ -Iinclude -c src/DiskDrive.cpp -o obj/DiskDrive.o
+    g++ -Iinclude -c src/DiskScheduler.cpp -o obj/DiskScheduler.o
+    g++ -Iinclude -c src/Utils.cpp -o obj/Utils.o
+    g++ -Iinclude -c src/main.cpp -o obj/main.o
+    g++ obj/*.o -o bin/disksim
     ```
 3.  The executable will be created at `bin/disksim`.
 
@@ -76,14 +80,32 @@ FinalTerm-Disk-Simulator/
 You can run the simulator in two ways:
 
 ### Interactive Mode
-Run the program without any arguments to see a menu:
+Run the program without any arguments to see a menu. Note that the command might be different depending on your operating system.
+
+**On Windows (PowerShell):**
+```powershell
+.\\bin\\disksim
+```
+
+**On Linux/macOS:**
 ```bash
 ./bin/disksim
 ```
 You will be prompted to choose which simulation to run.
 
 ### Command-Line Argument
-You can provide the initial head position for the disk scheduling simulation as a command-line argument. This is useful for scripting or quick tests.
+You can provide the initial head position for the disk scheduling simulation as a command-line argument.
+
+**On Windows (PowerShell):**
+```powershell
+.\\bin\\disksim [initial_head_position]
+```
+Example:
+```powershell
+.\\bin\\disksim 1234
+```
+
+**On Linux/macOS:**
 ```bash
 ./bin/disksim [initial_head_position]
 ```

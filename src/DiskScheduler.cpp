@@ -8,6 +8,10 @@
 
 using namespace std;
 
+const int DiskScheduler::TOTAL_CYLINDERS = 5000;
+const int DiskScheduler::MAX_CYLINDER = 4999;
+const int DiskScheduler::REQUEST_COUNT = 1000;
+
 DiskScheduler::DiskScheduler(int startHeadPosition, Direction startDirection)
     : startHeadPosition(startHeadPosition), initialDirection(startDirection) {
     if (startHeadPosition < 0 || startHeadPosition >= TOTAL_CYLINDERS) {

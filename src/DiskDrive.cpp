@@ -5,6 +5,9 @@
 
 using namespace std;
 
+const int DiskDrive::SECTOR_SIZE_BYTES = 512;
+const int64_t DiskDrive::BYTES_PER_GB = 1000000000;
+
 DiskDrive::DiskDrive() : diskSizeGB(0), sectors(0), tracks(0), platters(0) {}
 
 void DiskDrive::run() {

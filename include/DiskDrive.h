@@ -6,8 +6,8 @@
 class DiskDrive {
 public:
     // Constants
-    inline static const int SECTOR_SIZE_BYTES = 512;
-    inline static const int64_t BYTES_PER_GB = 1000000000;
+    static const int SECTOR_SIZE_BYTES;
+    static const int64_t BYTES_PER_GB;
 
     // Constructor
     DiskDrive();
