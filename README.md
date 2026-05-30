@@ -121,9 +121,9 @@ Ejemplo:
 
 Si se proporciona un argumento, el menú seguirá apareciendo, pero la simulación de planificación usará esa posición si se selecciona.
 
-Al ejecutar la planificación, el programa pedirá también el algoritmo a usar y la semilla de generación de solicitudes. Si ingresas `0` como semilla, se usará `2023`.
+Al ejecutar la planificación, el programa pedirá también el algoritmo a usar y la semilla de generación de solicitudes.
 
-La dirección inicial de SCAN es `UP` por defecto. Si quieres cambiarla, debes modificar la creación de `DiskScheduler` en `src/main.cpp` y pasar `DiskScheduler::Direction::DOWN`, o cambiar el valor por defecto en `include/DiskScheduler.h`.
+La dirección inicial de SCAN es `UP` por defecto. Si se desea cambiar, se debe modificar la creación de `DiskScheduler` en `src/main.cpp` y pasar `DiskScheduler::Direction::DOWN`, o cambiar el valor por defecto en `include/DiskScheduler.h`.
 
 ## 7. Formato de entrada y salida
 
@@ -153,7 +153,12 @@ Entrada:
   Número de pistas: 128
 
 Salida:
-  Resumen de geometría con tamaño, sectores, pistas y platos calculados.
+  --- Resumen de geometria de la unidad de disco ---
+Tamano del disco: 10 GB
+Tamano del sector: 512 bytes
+Total de sectores: 19531250
+Pistas calculadas (por plato): 128
+Platos calculados: 596
 ```
 
 **Problema 2**
@@ -164,32 +169,19 @@ Entrada:
   Semilla: 2023
 
 Salida:
-  Movimiento total y promedio para el algoritmo seleccionado.
-  Archivo generado: data/results.csv
-```
-
-### Simulación de DiskDrive
-```
---- Resumen de geometría de la unidad de disco ---
-Tamano del disco: 10 GB
-Tamano del sector: 512 bytes
-Total de sectores: 19531250
-Pistas calculadas (por plato): 128
-Platos calculados: 60
------------------------------------------------
-```
-
-### Simulación de DiskScheduler
-```
---- Resumen de planificacion de disco ---
+  --- Resumen de planificacion de disco ---
 Posicion inicial de la cabeza: 1234
 Total de solicitudes: 1000
 Algoritmo: SCAN
 Semilla: 2023
-Movimiento total de la cabeza: 1956381 cilindros
-Movimiento promedio de la cabeza: 1956.38 cilindros
-------------------------------------
+Movimiento total de la cabeza: 8756 cilindros
+Movimiento promedio de la cabeza: 8.74725 cilindros
+
+Archivo generado en data/results.csv: 
+  Algorithm,TotalMovement,AverageMovement
+SCAN,8756,8.74725
 ```
+
 
 ## 10. Suposiciones y limitaciones
 
