@@ -32,11 +32,11 @@ Esta parte implementa tres algoritmos de planificación de disco para procesar s
 
 ### Características principales
 - Genera 1,000 solicitudes aleatorias de cilindros.
-- Usa la semilla fija `2023` para que los resultados sean reproducibles.
+- Permite configurar la semilla para reproducir o variar las solicitudes aleatorias.
+- Permite elegir el algoritmo a ejecutar: FCFS, SCAN o C-SCAN.
 - Acepta la posición inicial de la cabeza como argumento de línea de comandos o de forma interactiva.
 - SCAN usa por defecto la dirección `UP`.
-- Calcula e informa el movimiento total de la cabeza para cada algoritmo.
-- Muestra la secuencia de solicitudes atendidas para verificación.
+- Calcula e informa el movimiento total y promedio de la cabeza para el algoritmo seleccionado.
 - Exporta un resumen de resultados a un archivo CSV.
 
 ## 4. Estructura del proyecto
@@ -120,6 +120,8 @@ Ejemplo:
 ```
 
 Si se proporciona un argumento, el menú seguirá apareciendo, pero la simulación de planificación usará esa posición si se selecciona.
+
+Al ejecutar la planificación, el programa pedirá también el algoritmo a usar y la semilla de generación de solicitudes. Si ingresas `0` como semilla, se usará `2023`.
 
 La dirección inicial de SCAN es `UP` por defecto. Si quieres cambiarla, debes modificar la creación de `DiskScheduler` en `src/main.cpp` y pasar `DiskScheduler::Direction::DOWN`, o cambiar el valor por defecto en `include/DiskScheduler.h`.
 
