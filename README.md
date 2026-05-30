@@ -32,7 +32,9 @@ Esta parte implementa tres algoritmos de planificación de disco para procesar s
 
 ### Características principales
 - Genera 1,000 solicitudes aleatorias de cilindros.
+- Usa la semilla fija `2023` para que los resultados sean reproducibles.
 - Acepta la posición inicial de la cabeza como argumento de línea de comandos o de forma interactiva.
+- SCAN usa por defecto la dirección `UP`.
 - Calcula e informa el movimiento total de la cabeza para cada algoritmo.
 - Muestra la secuencia de solicitudes atendidas para verificación.
 - Exporta un resumen de resultados a un archivo CSV.
@@ -119,6 +121,8 @@ Ejemplo:
 
 Si se proporciona un argumento, el menú seguirá apareciendo, pero la simulación de planificación usará esa posición si se selecciona.
 
+La dirección inicial de SCAN es `UP` por defecto. Si quieres cambiarla, debes modificar la creación de `DiskScheduler` en `src/main.cpp` y pasar `DiskScheduler::Direction::DOWN`, o cambiar el valor por defecto en `include/DiskScheduler.h`.
+
 ## 7. Formato de entrada y salida
 
 ### Entrada
@@ -136,6 +140,29 @@ Si se proporciona un argumento, el menú seguirá apareciendo, pero la simulaci�
 - **C-SCAN**: atiende solicitudes en una sola dirección y, al llegar al final, regresa al inicio para continuar.
 
 ## 9. Ejemplos de salida
+
+### Ejemplo de entrada y salida
+
+**Problema 1**
+```
+Entrada:
+  Tamaño del disco: 10
+  Opción: t
+  Número de pistas: 128
+
+Salida:
+  Resumen de geometría con tamaño, sectores, pistas y platos calculados.
+```
+
+**Problema 2**
+```
+Entrada:
+  Posición inicial de la cabeza: 1234
+
+Salida:
+  Movimiento total y promedio para FCFS, SCAN y C-SCAN.
+  Archivo generado: data/results.csv
+```
 
 ### Simulación de DiskDrive
 ```
