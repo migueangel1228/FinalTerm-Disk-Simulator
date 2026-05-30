@@ -6,6 +6,51 @@
 
 using namespace std;
 
+DiskScheduler::Algorithm promptAlgorithm() {
+    int choice = 0;
+
+    while (choice < 1 || choice > 3) {
+        cout << "Elige el algoritmo (1-FCFS, 2-SCAN, 3-C-SCAN): ";
+        cin >> choice;
+
+        if (cin.fail() || choice < 1 || choice > 3) {
+            cout << "Algoritmo invalido. Intenta nuevamente." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            choice = 0;
+        }
+    }
+
+    switch (choice) {
+        case 1:
+            return DiskScheduler::Algorithm::FCFS;
+        case 2:
+            return DiskScheduler::Algorithm::SCAN;
+        default:
+            return DiskScheduler::Algorithm::CSCAN;
+    }
+}
+
+unsigned int promptSeed() {
+    unsigned int seed = 2023;
+
+    cout << "Ingresa la semilla para las solicitudes aleatorias (0 usa 2023): ";
+    cin >> seed;
+
+    if (cin.fail()) {
+        cout << "Semilla invalida. Se usara 2023." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return 2023;
+    }
+
+    if (seed == 0) {
+        seed = 2023;
+    }
+
+    return seed;
+}
+
 void showMenu() {
     cout << "\n===== Final Term - Disk Simulator =====\n";
     cout << "1. Problema 1: simulacion de geometria de disco\n";
@@ -21,11 +66,11 @@ void runDiskDriveSimulator() {
     disk.run();
 }
 
-void runDiskSchedulingSimulator(int headPosition) {
+void runDiskSchedulingSimulator(int headPosition, DiskScheduler::Algorithm algorithm, unsigned int seed) {
     try {
-        DiskScheduler scheduler(headPosition);
-        scheduler.runAllAlgorithms();
-        scheduler.printAllResults();
+        DiskScheduler scheduler(headPosition, algorithm, seed);
+        scheduler.runSelectedAlgorithm();
+        scheduler.printSummary();
         scheduler.exportResultsToCSV("data/results.csv");
     } catch (const invalid_argument& e) {
         cerr << "Error: " << e.what() << endl;
@@ -70,7 +115,7 @@ int main(int argc, char* argv[]) {
                         break;
                     }
                 }
-                runDiskSchedulingSimulator(headPosition);
+                runDiskSchedulingSimulator(headPosition, promptAlgorithm(), promptSeed());
                 headPosition = -1; // Reiniciar para la siguiente ejecucion
                 break;
             case 3:
@@ -84,7 +129,7 @@ int main(int argc, char* argv[]) {
                         break;
                     }
                 }
-                runDiskSchedulingSimulator(headPosition);
+                runDiskSchedulingSimulator(headPosition, promptAlgorithm(), promptSeed());
                 headPosition = -1; // Reiniciar para la siguiente ejecucion
                 break;
             case 4:

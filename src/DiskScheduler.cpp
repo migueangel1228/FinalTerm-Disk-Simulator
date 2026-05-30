@@ -12,8 +12,8 @@ const int DiskScheduler::TOTAL_CYLINDERS = 5000;
 const int DiskScheduler::MAX_CYLINDER = 4999;
 const int DiskScheduler::REQUEST_COUNT = 1000;
 
-DiskScheduler::DiskScheduler(int startHeadPosition, Direction startDirection)
-    : startHeadPosition(startHeadPosition), initialDirection(startDirection) {
+DiskScheduler::DiskScheduler(int startHeadPosition, Algorithm selectedAlgorithm, unsigned int requestSeed, Direction startDirection)
+    : startHeadPosition(startHeadPosition), selectedAlgorithm(selectedAlgorithm), initialDirection(startDirection), requestSeed(requestSeed) {
     if (startHeadPosition < 0 || startHeadPosition >= TOTAL_CYLINDERS) {
         throw invalid_argument("La posicion inicial de la cabeza esta fuera de rango.");
     }
@@ -21,9 +21,7 @@ DiskScheduler::DiskScheduler(int startHeadPosition, Direction startDirection)
 }
 
 void DiskScheduler::loadRandomRequests() {
-    // Se usa una semilla fija para mantener la reproducibilidad.
-    unsigned int seed = 2023; 
-    requests = Utils::generateRandomRequests(REQUEST_COUNT, 0, MAX_CYLINDER, seed);
+    requests = Utils::generateRandomRequests(REQUEST_COUNT, 0, MAX_CYLINDER, requestSeed);
 }
 
 void DiskScheduler::runAllAlgorithms() {
@@ -31,6 +29,24 @@ void DiskScheduler::runAllAlgorithms() {
     results.push_back(calculateFCFS());
     results.push_back(calculateSCAN());
     results.push_back(calculateCSCAN());
+}
+
+void DiskScheduler::runSelectedAlgorithm() {
+    results.clear();
+    results.push_back(calculateSelectedAlgorithm());
+}
+
+ScheduleResult DiskScheduler::calculateSelectedAlgorithm() const {
+    switch (selectedAlgorithm) {
+        case Algorithm::FCFS:
+            return calculateFCFS();
+        case Algorithm::SCAN:
+            return calculateSCAN();
+        case Algorithm::CSCAN:
+            return calculateCSCAN();
+    }
+
+    throw invalid_argument("Algoritmo de planificacion invalido.");
 }
 
 ScheduleResult DiskScheduler::calculateFCFS() const {
@@ -148,6 +164,30 @@ void DiskScheduler::printAllResults() const {
     for (const auto& result : results) {
         printAlgorithmResult(result);
     }
+}
+
+void DiskScheduler::printSummary() const {
+    cout << "\n--- Resumen de planificacion de disco ---\n";
+    cout << "Posicion inicial de la cabeza: " << startHeadPosition << "\n";
+    cout << "Total de solicitudes: " << requests.size() << "\n";
+
+    if (results.empty()) {
+        cout << "No hay resultados para mostrar.\n";
+        cout << "------------------------------------\n";
+        return;
+    }
+
+    const ScheduleResult& result = results.front();
+    cout << "Algoritmo: " << result.algorithmName << "\n";
+    cout << "Semilla: " << requestSeed << "\n";
+    cout << "Movimiento total de la cabeza: " << result.totalMovement << " cilindros\n";
+
+    if (!result.servicedRequests.empty()) {
+        double avgMovement = static_cast<double>(result.totalMovement) / result.servicedRequests.size();
+        cout << "Movimiento promedio de la cabeza: " << avgMovement << " cilindros\n";
+    }
+
+    cout << "------------------------------------\n";
 }
 
 void DiskScheduler::printAlgorithmResult(const ScheduleResult& result) const {
