@@ -4,7 +4,7 @@
 
 Este proyecto es una simulación en C++ de dos temas relacionados con discos duros para un trabajo final universitario. Cubre:
 1. **Geometría de la unidad de disco**: simulación de las características físicas de un HDD a partir de su tamaño.
-2. **Algoritmos de planificación de disco**: implementación y comparación de FCFS, SCAN y C-SCAN para atender solicitudes de E/S.
+2. **Algoritmos de planificación de disco**: implementación de FCFS, SCAN y C-SCAN para atender solicitudes de E/S, con ejecución de un algoritmo por vez.
 
 El proyecto tiene una estructura modular y se ejecuta desde la línea de comandos.
 
@@ -37,7 +37,7 @@ Esta parte implementa tres algoritmos de planificación de disco para procesar s
 - Acepta la posición inicial de la cabeza como argumento de línea de comandos o de forma interactiva.
 - SCAN usa por defecto la dirección `UP`.
 - Calcula e informa el movimiento total y promedio de la cabeza para el algoritmo seleccionado.
-- Exporta un resumen de resultados a un archivo CSV.
+- Exporta el resultado de la ejecución a un archivo CSV.
 
 ## 4. Estructura del proyecto
 
@@ -129,7 +129,7 @@ La dirección inicial de SCAN es `UP` por defecto. Si quieres cambiarla, debes m
 
 ### Entrada
 - **Geometría del disco**: el programa solicitará el tamaño del disco en GB y el número de pistas o de platos.
-- **Planificación de disco**: el programa pedirá la posición inicial de la cabeza si no se proporciona por línea de comandos.
+- **Planificación de disco**: el programa pedirá la posición inicial de la cabeza si no se proporciona por línea de comandos, además del algoritmo a ejecutar y la semilla de generación.
 
 ### Salida
 - **Consola**: los resultados de las simulaciones se imprimen en consola.
@@ -160,9 +160,11 @@ Salida:
 ```
 Entrada:
   Posición inicial de la cabeza: 1234
+  Algoritmo: SCAN
+  Semilla: 2023
 
 Salida:
-  Movimiento total y promedio para FCFS, SCAN y C-SCAN.
+  Movimiento total y promedio para el algoritmo seleccionado.
   Archivo generado: data/results.csv
 ```
 
@@ -179,11 +181,11 @@ Platos calculados: 60
 
 ### Simulación de DiskScheduler
 ```
---- Algoritmo: FCFS ---
-Orden de atencion y movimiento:
-  Solicitud: 1632, Movimiento: 399
-  Solicitud: 4815, Movimiento: 3183
-  ...
+--- Resumen de planificacion de disco ---
+Posicion inicial de la cabeza: 1234
+Total de solicitudes: 1000
+Algoritmo: SCAN
+Semilla: 2023
 Movimiento total de la cabeza: 1956381 cilindros
 Movimiento promedio de la cabeza: 1956.38 cilindros
 ------------------------------------
